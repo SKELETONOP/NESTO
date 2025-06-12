@@ -1,0 +1,72 @@
+<%- include('partials/head') %>
+</head>
+<body class="bg-black min-h-screen flex flex-col justify-center items-center text-white relative overflow-hidden">
+  
+  <!-- Enhanced Star SVG Background -->
+  <svg class="absolute w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <defs>
+      <circle id="star" r="0.15" fill="white" />
+      <circle id="bigstar" r="0.25" fill="white" />
+    </defs>
+    <% for (let i = 0; i < 80; i++) { %>
+      <use href="#star" x="<%= Math.random() * 100 %>" y="<%= Math.random() * 100 %>" opacity="<%= 0.3 + Math.random() * 0.7 %>" />
+    <% } %>
+    <% for (let i = 0; i < 20; i++) { %>
+      <use href="#bigstar" x="<%= Math.random() * 100 %>" y="<%= Math.random() * 100 %>" opacity="<%= 0.5 + Math.random() * 0.5 %>" />
+    <% } %>
+  </svg>
+  
+  <!-- Main Content -->
+  <main class="z-10 text-center px-4">
+    <div class="text-9xl font-bold mb-6 flex justify-center items-center gap-6">
+      <span class="text-green-400">4</span>
+      
+      <!-- Enlarged spaceship image with floating animation -->
+      <div class="relative animate-float w-48 h-48">
+        <img 
+          src="/images/spaceship.png" 
+          alt="Spaceship" 
+          class="w-full h-full object-contain"
+        />
+
+        <!-- Light beam below UFO -->
+        
+      </div>
+
+      <span class="text-green-400">4</span>
+    </div>
+    
+    <h2 class="text-2xl font-semibold mb-2">Houston, We Have a Problem!</h2>
+    <p class="text-gray-400 mb-6">The page you're looking for has drifted into deep space.</p>
+    <a 
+      href="/" 
+      class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-6 rounded-full transition duration-300 hover:shadow-lg hover:shadow-orange-600/25"
+    >
+      RETURN TO BASE
+    </a>
+  </main>
+  
+  <!-- Floating & Star Animation -->
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    #star, #bigstar {
+      animation: twinkle 2s ease-in-out infinite;
+      animation-delay: calc(var(--delay, 0) * 0.1s);
+    }
+  </style>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+<% if (typeof errorMessages !== 'undefined' && errorMessages && errorMessages.length > 0) { %>
+            <div class="text-red-400 text-sm mb-4" role="alert">
+              <ul class="list-disc pl-5 space-y-2">
+                <% errorMessages.forEach(error => { %>
+                  <li class="flex items-center">
+                    <span class="mr-2">⚠️</span>
+                    <%= error %>
+                  </li>
+                <% }) %>
+              </ul>
+            </div>
+          <% } %>

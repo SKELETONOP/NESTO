@@ -1,0 +1,89 @@
+<%- include('../partials/head', { activeTab: activeTab || '' }) %>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-800 font-sans m-0 p-0 relative overflow-x-hidden">
+  <!-- Animated background elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-orange-400 to-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+    <div class="absolute top-60 right-20 w-96 h-96 bg-gradient-to-r from-pink-400 to-orange-500 rounded-full mix-blend-multiply filter blur-xl opacity-15 animate-pulse animation-delay-2000"></div>
+    <div class="absolute bottom-20 left-1/2 w-80 h-80 bg-gradient-to-r from-orange-500 to-pink-600 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse animation-delay-4000"></div>
+  </div>
+
+  <%- include('../partials/nav') %>
+
+  <main class="flex flex-col items-center justify-center pt-10 relative z-10">
+    <% if (homes.length === 0) { %>
+      <!-- No homes available -->
+      <div class="max-w-md rounded-2xl backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl p-8 mb-8 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-pink-500/20 rounded-2xl"></div>
+        <div class="relative z-10">
+          <h1 class="text-4xl font-bold bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent mb-4">Welcome to Airbnb</h1>
+          <p class="text-lg text-white/90">There are no homes listed yet. Be the first to add one!</p>
+        </div>
+      </div>
+    <% } else { %>
+      <!-- Display homes -->
+      <div class="max-w-full mx-auto backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-3xl p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-white/0 rounded-3xl"></div>
+        <div class="relative z-10">
+          <h2 class="text-5xl font-bold mb-8 text-center bg-gradient-to-r from-orange-400 via-pink-400 to-orange-300 bg-clip-text text-transparent">Hey Host ! Here Are Your Homes</h2>
+          
+          <ul class="flex flex-wrap gap-8 justify-center">
+            <% homes.forEach(home => { %>
+              <li class="backdrop-blur-lg bg-white/10 border border-white/20 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-white/15 flex flex-col items-start text-left text-xl w-full sm:w-[300px] md:w-[350px] relative overflow-hidden group">
+                <!-- Card gradient overlay -->
+                <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <a href="/homes/<%= home._id %>" class="w-full block relative z-10">
+                  <div class="relative overflow-hidden rounded-xl mb-4">
+                    <img src="<%= home.imgUrl || 'https://via.placeholder.com/350x200?text=No+Image' %>" alt="<%= home.houseName %>" class="w-full h-48 object-cover rounded-xl transition-transform duration-300 group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
+                  </div>
+                  <div class="text-2xl font-bold mb-2 text-white group-hover:text-orange-300 transition-colors duration-300"><%= home.houseName %></div>
+                  <div class="text-white/80 text-lg mb-2">Owner: <span class="font-semibold text-orange-300"><%= home.ownerName %></span></div>
+                  <div class="text-white/80 text-lg mb-2">Price per Night: <span class="font-bold text-pink-300">₹<%= home.pricePerNight %></span></div>
+                  <div class="text-white/80 text-lg mb-2">Location: <span class="font-medium text-white"><%= home.location %></span></div>
+                  <div class="text-white/80 text-lg mb-4">Rating: <span class="font-medium text-yellow-400"><%= home.rating %> ⭐</span></div>
+                </a>
+                
+                <div class="flex space-x-4 mt-auto relative z-10">
+                  <a href="/host/edit-home/<%= home._id %>?editing=true" class="backdrop-blur-sm bg-blue-500/80 hover:bg-blue-400/90 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg border border-blue-400/30">Edit</a>
+                  <form action="/host/delete-home/<%= home._id %>" method="POST">
+                    <button type="submit" class="backdrop-blur-sm bg-gradient-to-r from-red-500/80 to-pink-500/80 hover:from-red-400/90 hover:to-pink-400/90 text-white px-4 py-3 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg border border-red-400/30 hover:border-pink-400/30">✘</button>
+                  </form>
+                </div>
+              </li>
+            <% }); %>
+          </ul>
+        </div>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <style>
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+      animation-delay: 4s;
+    }
+    
+    /* Custom glassmorphism scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #f97316, #ec4899);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #ea580c, #db2777);
+    }
+  </style>
+</body>
+</html>

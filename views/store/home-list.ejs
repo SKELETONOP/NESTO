@@ -1,0 +1,74 @@
+<%- include('../partials/head', { activeTab: activeTab || '' }) %>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen relative font-sans m-0 p-0">
+  <!-- Background Elements -->
+  <div class="fixed inset-0 z-0">
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 4s;"></div>
+  </div>
+
+  <%- include('../partials/nav') %>
+
+  <main class="flex flex-col items-center justify-center pt-10 relative z-10">
+    <% if (homes.length === 0) { %>
+      <!-- No homes available -->
+      <div class="max-w-md rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl p-8 mb-8 text-center relative overflow-hidden">
+        <!-- Card Glow Effect -->
+        <div class="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-pink-500/10 to-orange-500/10 rounded-3xl blur-xl"></div>
+        
+        <div class="relative z-10">
+          <h1 class="text-4xl font-bold bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent mb-4">Welcome to HomeStay</h1>
+          <p class="text-lg text-white/70"> Hii! <%= user && user.firstName ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1) : '' %>There are no homes listed yet. Be the first to add one!</p>
+        </div>
+      </div>
+    <% } else { %>
+      <!-- Display homes -->
+      <div class="max-w-full mx-auto bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl p-8 relative overflow-hidden">
+        <!-- Card Glow Effect -->
+        <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10 rounded-3xl blur-xl"></div>
+        
+        <div class="relative z-10">
+          <h2 class="text-5xl font-semibold mb-4 text-center bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent">Browse Your Homes <%= user && user.firstName ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1) : '' %> </h2>
+          <p class="text-xl mb-6 text-white/70 text-center">Here are some of the available listings:</p>
+
+          <ul class="flex flex-wrap gap-6 justify-center">
+            <% homes.forEach(home => { %>
+              <li class="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-xl flex flex-col items-start text-left text-xl w-full sm:w-[300px] md:w-[350px] relative overflow-hidden group hover:scale-105 transition-all duration-300">
+                <!-- Card Glow Effect -->
+                <div class="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-pink-500/5 to-purple-500/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <div class="relative z-10 w-full">
+                  <a href="/homes/<%= home._id %>" class="w-full block">
+                    <img src="<%= home.imgUrl || 'https://via.placeholder.com/350x200?text=No+Image' %>" alt="<%= home.houseName %>" class="w-full h-48 object-cover rounded-xl mb-4 border border-white/20" />
+                    <div class="text-2xl font-semibold mb-1 text-white"><%= home.houseName %></div>
+                    <div class="text-white/70 text-lg mb-1">Owner: <span class="font-medium text-orange-400"><%= home.ownerName %></span></div>
+                    <div class="text-white/70 text-lg mb-1">Price per Night: ₹<span class="font-medium text-orange-400"><%= home.pricePerNight %></span></div>
+                    <div class="text-white/70 text-lg mb-1">Location: <span class="font-medium text-orange-400"><%= home.location %></span></div>
+                    <div class="text-white/70 text-lg mb-1">Rating: <span class="font-medium text-orange-400"><%= home.rating %> ⭐</span></div>
+                  </a>
+                  <div class="flex flex-col space-y-4 mt-4 w-full max-w-xs mx-auto">
+                    <!-- Details Button -->
+                    <a href="/homes/<%= home._id %>" 
+                       class="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-4 py-3 rounded-xl w-full text-center block font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25 focus:outline-none focus:ring-4 focus:ring-orange-400/30">
+                      Details
+                    </a>
+
+                    <!-- Add to Favourite Form -->
+                    <%- include('../partials/favourites', { home: home }) %>
+
+                    <!-- Book Now Form -->
+                    <%- include('../partials/booking', { home: home }) %>
+                  </div>
+                </div>
+              </li>
+            <% }); %>
+          </ul>
+        </div>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

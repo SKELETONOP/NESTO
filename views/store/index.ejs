@@ -1,0 +1,44 @@
+<%- include('../partials/head', { activeTab: activeTab || '' }) %>
+</head>
+<body class="bg-gray-100 font-sans m-0 p-0">
+
+  <%- include('../partials/nav') %>
+
+  <main class="flex flex-col items-center justify-center pt-10">
+    <% if (homes.length === 0) { %>
+      <!-- No homes available -->
+      <div class="max-w-md rounded-md bg-orange-600 shadow-md p-6 mb-8 text-center">
+        <h1 class="text-4xl font-bold text-white mb-4">Welcome to Airbnb</h1>
+        <p class="text-lg text-white">There are no homes listed yet. Be the first to add one!</p>
+      </div>
+    <% } else { %>
+      <!-- Display homes -->
+      <div class="max-w-full mx-auto bg-white shadow-md rounded-xl p-6">
+        <h2 class="text-5xl font-semibold mb-4 text-center">Welcome to Airbnb index Page</h2>
+        <p class="text-xl mb-6 text-gray-600 text-center">Here are some of the available listings:</p>
+
+        <ul class="flex flex-wrap gap-6 justify-center">
+          <% homes.forEach(home => { %>
+            <li class="bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-start text-left text-xl w-full sm:w-[300px] md:w-[350px]">
+              <a href="/homes/<%= home._id %>" class="w-full block">
+                <img src="<%= home.imgUrl || 'https://via.placeholder.com/350x200?text=No+Image' %>" alt="<%= home.houseName %>" class="w-full h-48 object-cover rounded-md mb-4" />
+                <div class="text-2xl font-semibold mb-1"><%= home.houseName %></div>
+                <div class="text-gray-600 text-lg mb-1">Owner: <span class="font-medium"><%= home.ownerName %></span></div>
+                <div class="text-gray-600 text-lg mb-1">Price per Night: ₹<span class="font-medium"><%= home.pricePerNight %></span></div>
+                <div class="text-gray-600 text-lg mb-1">Location: <span class="font-medium"><%= home.location %></span></div>
+                <div class="text-gray-600 text-lg mb-1">Rating: <span class="font-medium"><%= home.rating %> ⭐</span></div>
+              </a>
+              <div class="flex space-x-4 mt-2 text-sm md:text-xl">
+                <a href="/homes/<%= home._id %>" class="bg-blue-500 text-white px-4 py-2 rounded-md">Details</a>
+                <%- include('../partials/booking', { home: home }) %>
+              </div>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

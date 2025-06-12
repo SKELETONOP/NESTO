@@ -1,0 +1,189 @@
+<%- include('../partials/head') %>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-800 text-gray-900 relative overflow-x-hidden">
+
+  <!-- Animated background elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-orange-400 to-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+    <div class="absolute top-60 right-20 w-96 h-96 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-15 animate-pulse animation-delay-2000"></div>
+    <div class="absolute bottom-20 left-1/2 w-80 h-80 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse animation-delay-4000"></div>
+    <div class="absolute top-1/3 left-1/4 w-64 h-64 bg-gradient-to-r from-orange-500 to-red-400 rounded-full mix-blend-multiply filter blur-xl opacity-12 animate-pulse animation-delay-1000"></div>
+  </div>
+
+  <!-- Header Partial -->
+  <%- include('../partials/nav') %>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-6 py-8 relative z-10">
+    <!-- Single home Section -->
+    <section class="backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-3xl overflow-hidden relative">
+      <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-white/0 rounded-3xl"></div>
+      
+      <!-- Image Section -->
+      <div class="relative overflow-hidden">
+        <img src="<%= home.imgUrl || 'https://via.placeholder.com/1200x600?text=No+Image' %>" alt="<%= home.houseName %>" class="w-full h-80 md:h-96 object-cover transition-transform duration-700 hover:scale-105">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        
+        <!-- Floating title overlay -->
+        <div class="absolute bottom-6 left-6 backdrop-blur-lg bg-white/20 border border-white/30 text-white px-6 py-4 rounded-2xl shadow-xl">
+          <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-orange-300 to-pink-300 bg-clip-text text-transparent">
+            <%= home.houseName %>
+          </h1>
+        </div>
+
+        <!-- Premium badge -->
+        <div class="absolute top-6 right-6 backdrop-blur-sm bg-gradient-to-r from-orange-500/80 to-pink-500/80 text-white px-4 py-2 rounded-full font-semibold shadow-lg border border-white/20">
+          Premium Property
+        </div>
+      </div>
+
+      <!-- Home Details -->
+      <div class="p-8 space-y-6 relative z-10">
+        
+        <!-- Details Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Owner Info -->
+          <div class="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-orange-400 to-pink-400 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="text-lg font-bold text-white/90">Owner</div>
+                <div class="text-xl text-orange-300 font-semibold"><%= home.ownerName %></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Price Info -->
+          <div class="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path>
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="text-lg font-bold text-white/90">Price per Night</div>
+                <div class="text-2xl text-green-300 font-bold">₹<%= home.pricePerNight %></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Location Info -->
+          <div class="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="text-lg font-bold text-white/90">Location</div>
+                <div class="text-xl text-cyan-300 font-semibold"><%= home.location %></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rating Info -->
+          <div class="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="text-lg font-bold text-white/90">Rating</div>
+                <div class="text-xl text-yellow-300 font-semibold flex items-center">
+                  <span class="mr-2"><%= home.rating %></span>
+                  <div class="flex">
+                    <% for(let i = 1; i <= 5; i++) { %>
+                      <svg class="w-5 h-5 <%= i <= home.rating ? 'text-yellow-400' : 'text-gray-500' %>" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                      </svg>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description Section -->
+        <div class="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-all duration-300">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <div class="text-xl font-bold text-white/90 mb-3">Description</div>
+              <p class="text-white/80 leading-relaxed text-lg"><%= home.description || 'No description available.' %></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center justify-between gap-6 pt-4">
+          <a href="/" class="backdrop-blur-sm bg-gradient-to-r from-blue-500/80 to-cyan-500/80 hover:from-blue-400/90 hover:to-cyan-400/90 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border border-blue-400/30 flex items-center space-x-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Back to Homes</span>
+          </a>
+          
+          <div class="backdrop-blur-sm bg-gradient-to-r from-pink-500/80 to-red-500/80 hover:from-pink-400/90 hover:to-red-400/90 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg border border-pink-400/30">
+            <%- include('../partials/favourites') %>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <%- include('../partials/footer') %>
+
+  <style>
+    .animation-delay-1000 {
+      animation-delay: 1s;
+    }
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+      animation-delay: 4s;
+    }
+    
+    /* Custom glassmorphism scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #f97316, #ec4899);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #ea580c, #db2777);
+    }
+
+    /* Enhanced hover effects */
+    .backdrop-blur-sm:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+
+</body>
+</html>
