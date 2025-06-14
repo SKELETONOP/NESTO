@@ -162,3 +162,26 @@ exports.getHelp = (req, res) => {
     user: req.session.user, // Pass user info to the view
   });
 };
+
+
+exports.getProfile = async (req, res) =>{
+  const user = req.session.user;
+  try {
+      const user = await User.findById(req.session.user._id)
+        .populate('favourites')
+        .populate('bookings');
+  
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+  
+      res.render("admin/userDetails", {
+        pageTitle: `${user.firstName} ${user.lastName || ''} Details`,
+        user
+      });
+  
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      res.status(500).send("Server error");
+    }
+}

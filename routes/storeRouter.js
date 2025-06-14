@@ -11,6 +11,7 @@ const {
   postAddToBookings,
   postRemoveFromBookings,
   getHelp,
+  getProfile
 } = require('../controllers/storeController');
 
 // ✅ Cleaned Routes (no /store prefix)
@@ -24,5 +25,6 @@ StoreRouter.post("/store/favourites", postAddToFavourites);
 StoreRouter.post("/favourites/delete/:homeId", postRemoveFromFavourites);
 StoreRouter.get("/homes/:id", getHomeDetails);
 StoreRouter.get("/help", getHelp);
+StoreRouter.get("/profile", getProfile);
 
 module.exports = StoreRouter;
